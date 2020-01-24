@@ -19,16 +19,19 @@ ironhack_classroom = {
 whiteboard = {
     "name": "whiteboard",
     "type": "furniture",
+    "message": 'strange words are written on the whiteboard: "fork, clone, add, commit, push, merge". you are confused but'
 }
 
 carlos = {
     "name": "carlos",
     "type": "teacher",
+    "message": "carlos asks if you filled in the support form."
 }
 
 door_a = {
     "name": "door_a",
     "type": "door",
+    "message": "good job you have mastered github ;)"
 }
 
 key_a = {
@@ -48,16 +51,19 @@ list_comprehension_room = {
 piece_of_paper = {
     "name": "piece_of_paper",
     "type": "furniture",
+    "message": 'you pick up a piece of paper from the floor. it says the same message over and over again:"i shall not append".'
 }
 
 mattia = {
     "name": "mattia",
     "type": "teacher",
+    "message": "mattia remins you that you still haven't filled the support form."
 }
 
 door_b = {
     "name": "door_b",
     "type": "door",
+    "message": "good job! on to the next challenge."
 }
 
 key_b = {
@@ -80,14 +86,16 @@ function_room = {
 
 ####-----NEW OBJECTS IN ROOMS---------####
 
-lamp = {
-    "name": "lamp",
+coffee_machine = {
+    "name": "coffee_machine",
     "type": "furniture",
+    "message": "the coffee machine doesn't work. you add water. still doesn't work. you clean the tray."
 }
 
 apple = {
     "name": "apple",
     "type": "furniture",
+    "message": "it's an apple. you eat it. it tastes super weird."
 }
 
 ####-----TEACHERS---------####
@@ -95,41 +103,20 @@ apple = {
 jo = {
     "name": "jo",
     "type": "teacher",
+    "message": "jo says she can help! oh but she doesn't see your support form."
 }
 
 cristina = {
     "name": "cristina",
     "type": "teacher",
+    "message": "cristina says you should ask your TAs."
 }
 
-
-
-door_a = {
-    "name": "door_a",
-    "type": "door",
-}
-
-key_a = {
-    "name": "key_a",
-    "type": "key",
-    "target": door_a,
-}
-
-
-door_b = {
-    "name": "door_b",
-    "type": "door",
-}
-
-key_b = {
-    "name": "key_b",
-    "type": "key",
-    "target": door_b,
-}
 
 door_c = {
     "name": "door_c",
     "type": "door",
+    "message": "nice one! almost there..."
 }
 
 key_c = {
@@ -142,6 +129,7 @@ key_c = {
 door_d = {
     "name": "door_d",
     "type": "door",
+    "message": "well done! there's light behind this door..."
 }
 
 
@@ -157,7 +145,7 @@ outside = {
 
 all_rooms = [ironhack_classroom, list_comprehension_room, string_room, function_room, outside]
 
-puzzle_answers = ['bla', 'blu']
+
 
 all_doors = [door_a, door_b, door_c, door_d]
 
@@ -165,17 +153,17 @@ all_doors = [door_a, door_b, door_c, door_d]
 
 object_relations = {
     "ironhack_classroom": [whiteboard, carlos, door_a],
-    "carlos": [key_a],
+    "whiteboard": [key_a],
     "outside": [door_d],
     "door_a": [ironhack_classroom, list_comprehension_room],
     "list_comprehension_room": [piece_of_paper, mattia, door_a, door_b],
-    "mattia": [key_b],
-    "string_room": [lamp, jo, door_b, door_c],
-    "jo": [key_c],
+    "piece_of_paper": [key_b],
+    "string_room": [coffee_machine, jo, door_b, door_c],
+    "coffee_machine": [key_c],
     "door_b": [list_comprehension_room, string_room],
     "function_room": [apple, cristina, door_c, door_d],
     "door_d": [function_room, outside],
-    "cristina": [key_d],
+    "apple": [key_d],
     "door_c": [string_room, function_room],
 }
 
@@ -254,7 +242,7 @@ def play_room(room):
     if(game_state["current_room"] == game_state["target_room"]):
         print("You can’t believe it’s true, you can smell the fresh air and hear the birds! You step outside and all your classmates are having a beer! They look at you and they shout you MADE IT!!!")
     else:
-        print("You are now in " + room["name"])
+        print("You are now in the " + room["name"])
         linebreak()
         #first inquirer
         question1 = [
@@ -338,7 +326,7 @@ def examine_item(item_name):
 
                         if answer_question_a == 'Clone' :    
                             next_room = get_next_room_of_door(item, current_room)
-                            output = "You opened door! Good job and good luck"
+                            output = item['message']
 
                         elif answer_question_a == 'Push':
                             output = "Sorry try again"
@@ -355,7 +343,7 @@ def examine_item(item_name):
                         
                         if answer_question_b == '#- print([i for i in range(10)]' :    
                             next_room = get_next_room_of_door(item, current_room)
-                            output = "You opened door! Good job and good luck"
+                            output = item['message']
                         else:
                             output = "Sorry try again"
                     
@@ -366,7 +354,7 @@ def examine_item(item_name):
                     
                         if answer_question_c == 'str.lower()' : 
                             next_room = get_next_room_of_door(item, current_room)
-                            output = "You opened door! Good job and good luck"
+                            output = item['message']
                         else:
                             output = "Sorry try again"
                     
@@ -377,18 +365,22 @@ def examine_item(item_name):
                     
                         if answer_question_d == 'No' :    
                             next_room = get_next_room_of_door(item, current_room)
-                            output = "You opened door! Good job and good luck"
+                            output = item['message']
                         else:
                             output = "Sorry try again"
                     
 
                 else:
                     output += "It is locked but you don't have the key."
+            
+            elif(item['type'] == 'teacher'):
+                output = item['message']
+            
             else:
                 if(item["name"] in object_relations and len(object_relations[item["name"]])>0):
                     item_found = object_relations[item["name"]].pop()
                     game_state["keys_collected"].append(item_found)
-                    output += "You find " + item_found["name"] + "."
+                    output += item['message'] + " You find " + item_found["name"] + "."
                 else:
                     output += "There isn't anything interesting about it."
             print(output)
