@@ -2,7 +2,11 @@
 # coding: utf-8
 
 # In[1]:
-
+import os
+import sys
+import re
+sys.path.append(os.path.realpath('.'))
+from pprint import pprint
 
 import inquirer 
 
@@ -351,9 +355,10 @@ def examine_item(item_name):
                     if(item["name"] == "door_b"):
                         
                         answer_b = inquirer.prompt(question_b)
-                        answer_question_b = answer_b['question_b']
+                        answer_question_b = str(pprint(answer_b['question_b']))
                         
-                        if answer_question_b == '#- print([i for i in range(10)]' :    
+                    
+                        if (answer_question_b == "#- print([i for i in range(10)]") :    
                             next_room = get_next_room_of_door(item, current_room)
                             output = "You opened door! Good job and good luck"
                         else:

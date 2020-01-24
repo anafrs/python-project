@@ -211,22 +211,22 @@ inquirer.List('question_a',
 
 question_b = [
 inquirer.List('question_b',
-        message="What option gives the following output? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]",
-        choices=['#- print([str(who_knows) for who_cares in list_with_numbers])', '#- print([i for i in range(10)]', '#- print([i for i in range(1,11)])'],
+        message="Will print([i for i in range(1,11)]) print: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]?",
+        choices=['yes', 'no'],
         ),
     ]
 
 question_c = [
 inquirer.List('question_c',
-        message="How do you change every letter in 'THIS IS THE STRING ROOM' to lower case?",
-        choices=['str.title()', 'str.lower()', 'str.down()'],
+        message="Does str.lower() change every letter in str = 'THIS IS THE STRING ROOM' to lower case?",
+        choices=['yes', 'no'],
         ),
     ]
 
 question_d = [
 inquirer.List('question_d',
         message="Will the following function produce an output? lambda x: y * y",
-        choices=['Yes', 'No'],
+        choices=['yes', 'no'],
         ),
     ]
 
@@ -353,7 +353,8 @@ def examine_item(item_name):
                         answer_b = inquirer.prompt(question_b)
                         answer_question_b = answer_b['question_b']
                         
-                        if answer_question_b == '#- print([i for i in range(10)]' :    
+                    
+                        if (answer_question_b == "no") :    
                             next_room = get_next_room_of_door(item, current_room)
                             output = "You opened door! Good job and good luck"
                         else:
@@ -364,7 +365,7 @@ def examine_item(item_name):
                         answer_c = inquirer.prompt(question_c)
                         answer_question_c = answer_c['question_c']
                     
-                        if answer_question_c == 'str.lower()' : 
+                        if answer_question_c == 'yes' : 
                             next_room = get_next_room_of_door(item, current_room)
                             output = "You opened door! Good job and good luck"
                         else:
@@ -375,7 +376,7 @@ def examine_item(item_name):
                         answer_d = inquirer.prompt(question_d)
                         answer_question_d = answer_d['question_d']
                     
-                        if answer_question_d == 'No' :    
+                        if answer_question_d == 'no' :    
                             next_room = get_next_room_of_door(item, current_room)
                             output = "You opened door! Good job and good luck"
                         else:
